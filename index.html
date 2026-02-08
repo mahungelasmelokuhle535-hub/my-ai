@@ -1,74 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>My Private AI 🤖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smelo AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {
-      background: #0f172a;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      color: white;
-      margin: 0;
-    }
-    .chat {
-      max-width: 600px;
-      margin: auto;
-      padding: 15px;
-    }
-    .bubble {
-      padding: 12px;
-      border-radius: 12px;
-      margin: 8px 0;
-      max-width: 80%;
-    }
-    .user {
-      background: #2563eb;
-      margin-left: auto;
-    }
-    .bot {
-      background: #1e293b;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      margin-top: 10px;
-      font-size: 16px;
-    }
+    body { font-family: Arial; background:#f5f5f5; padding:20px; }
+    #chat { max-width:600px; margin:auto; background:white; padding:15px; border-radius:10px; }
+    input { width:80%; padding:10px; }
+    button { padding:10px; }
+    .msg { margin:10px 0; }
   </style>
 </head>
 <body>
 
-<div class="chat" id="chat">
-  <div class="bubble bot">Hey Smelo 👋🏽 I’m your private AI.</div>
+<div id="chat">
+  <h2>🤖 Smelo AI</h2>
+  <div id="messages"></div>
+  <input id="input" placeholder="Type here..." />
+  <button onclick="send()">Send</button>
 </div>
 
-<input type="text" id="input" placeholder="Ask me anything..." />
-
 <script>
+async function send() {
   const input = document.getElementById("input");
-  const chat = document.getElementById("chat");
+  const msg = input.value;
+  if (!msg) return;
 
-  input.addEventListener("keypress", function(e) {
-    if (e.key === "Enter" && input.value.trim() !== "") {
-      addBubble(input.value, "user");
-      setTimeout(() => {
-        addBubble("I’m thinking 🤔 (AI coming soon)", "bot");
-      }, 500);
-      input.value = "";
-    }
-  });
+  document.getElementById("messages").innerHTML += 
+    `<div class="msg"><b>You:</b> ${msg}</div>`;
+  input.value = "";
 
-  function addBubble(text, type) {
-    const div = document.createElement("div");
-    div.className = "bubble " + type;
-    div.innerText = text;
-    chat.appendChild(div);
-    window.scrollTo(0, document.body.scrollHeight);
-  }
+  document.getElementById("messages").innerHTML += 
+    `<div class="msg"><b>AI:</b> Thinking...</div>`;
+}
 </script>
 
 </body>
-  </html>
+</html>
